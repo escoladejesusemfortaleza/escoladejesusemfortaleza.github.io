@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola de Jesus</title>
+    <link rel="stylesheet" href="arquivo-css/style.css">
+      <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        header {
+            background-color: #080808;
+            text-align: center;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-image: url(https://calendar.google.com/calendar/embed?src=escoladejesusemfortalezace%40gmail.com&ctz=America%2FFortaleza);
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+            justify-content: space-between;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .image-gallery {
+            text-align: center;
+        }
+
+        .image-gallery img {
+            display: inline-block;
+            width: 250px;
+            height: auto;
+            margin: 7px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .imagem-flutuante {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .imagem-flutuante a {
+            display: block;
+        }
+
+        .google-calendar {
+            padding: auto;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        #contatos {
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        p {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            color: #555;
+        }
+
+        #banner {
+            background-color: #0b54db;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        #cadastro {
+            text-align: center;
+            padding: 40px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            font-size: 14px;
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #777;
+            border-radius: 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus {
+            border-color: #4caf50;
+            outline: none;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .direitos-autorais {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        #body {
+    align-items: center;
+    justify-content: center;
+    
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Ajuste conforme necessário */
+}
+
+.logo img {
+    width: 50px; /* Ajuste conforme necessário */
+    height: 50px; /* Ajuste conforme necessário */
+    margin-right: 10px; /* Adiciona espaço entre o logo e os outros itens do menu */
+}
+.gif-banner {
+            width: 100%; /* Faz com que a faixa ocupe toda a largura */
+            height: 150px; /* Ajuste a altura conforme necessário */
+            overflow: hidden; /* Garante que o conteúdo dentro da faixa não ultrapasse a altura definida */
+        }
+
+        .gif-banner img {
+            width: 100%; /* Garante que o gif se ajuste à largura da faixa */
+            height: auto; /* Mantém a proporção original da imagem */
+        }
+
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js"></script>
+    <!-- ... seu código anterior ... -->
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "nMKu4WnLfDrI-ISP3DVYyC3glW1f-vf8TFdom4j6EFY",
+            authDomain: "seu-projeto.firebaseapp.com",
+            projectId: "seu-projeto",
+            storageBucket: "seu-projeto.appspot.com",
+            messagingSenderId: "Seu-ID-de-Messaging",
+            appId: "Sua-ID-de-App",
+            measurementId: "Sua-Measurement-ID"
+        };
+    
+        // Inicialize o Firebase
+        firebase.initializeApp(firebaseConfig);
+    
+        // Referência ao nó 'alunos' no Realtime Database
+        var alunosRef = firebase.database().ref('alunos');
+    </script>
+<!-- ... seu código anterior ... -->
+
+<script>
+    function enviarDados(event) {
+        event.preventDefault();
+
+        var nome = document.getElementById('nome').value;
+        var email = document.getElementById('email').value;
+        var telefone = document.getElementById('telefone').value;
+        var endereco = document.getElementById('endereco').value;
+
+        // Salve os dados no Firebase
+        if (alunosRef) {  // Verifica se a referência está definida
+            alunosRef.push({
+                nome: nome,
+                email: email,
+                telefone: telefone,
+                endereco: endereco
+            });
+
+            // Limpe o formulário após o envio
+            document.getElementById('nome').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('telefone').value = '';
+            document.getElementById('endereco').value = '';
+
+            alert('Dados enviados com sucesso!');
+        } else {
+            console.error("Referência 'alunosRef' não está definida corretamente.");
+        }
+    }
+</script>
+
+<!-- ... seu código anterior ... -->
+
+        
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="logo"><img src="https://th.bing.com/th?id=OIP.UPRuLTXhFpoR2O8CFi8t7AHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2" alt="logo"></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#contatos">Contatos</a></li>
+                <li><a href="#cadastro">Cadastro</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="body">
+            <hr>
+
+            <!-- Faixa com o gif -->
+            <div class="gif-banner">
+                <img src="https://www.bing.com/th/id/OGC.2e7392bd69172cb64fb648d6a5abb830?pid=1.7&rurl=https%3a%2f%2fmedia.giphy.com%2fmedia%2fxTiTnxpQ3ghPiB2Hp6%2fgiphy.gif&ehk=c8COSrPeIa%2bBkADUMjh%2bzxXm3w0fTQl1i4NEgrydoPE%3d" alt="Banner Gif">
+            </div>
+        
+            <br>
+            <hr>
+            <div id="banner"></div>
+            <br>
+            <div class="google-calendar">
+                <!-- Calendário do Google -->
+             <center>   <iframe src="https://calendar.google.com/calendar/embed?src=escoladejesusemfortalezace%40gmail.com&ctz=America%2FFortaleza" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe></center>
+            </div>
+        </section>
+
+        <section id="contatos">
+            <h2>Contatos</h2>
+            <p style="font-family: Arial, sans-serif; color: #333;">Professora: VALDA MARIA LIMA</p>
+
+            <a href="https://api.whatsapp.com/send?phone=5585988755049" target="_blank">Contact Teacher</a>
+
+                <br>
+ 
+               <div class="button-icon">
+                    <img src="https://th.bing.com/th?id=OIP.pM8_tuje_Ph8oUHVgJmIhwHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2" alt="Robot Icon"> <!-- Replace with your own robot icon -->
+                </div>
+
+            <!-- Formulário ou informações de contato -->
+        </section>
+        <div class="imagem-flutuante">
+            <a href="https://ex.tv.br" target="_blank">
+                <img src="https://th.bing.com/th/id/OIP.peFs-_x51hKE_ubxY-8swAAAAA?w=196&h=194&c=7&r=0&o=5&pid=1.7" alt="Imagem Flutuante">
+            </a>
+        </div>
+        <h1>Cadastro dos Alunos(a)</h1>
+        <!-- Formulário de cadastro de alunos -->
+
+        <section id="cadastro">
+            <form onsubmit="return validarFormulario();">
+
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" pattern="[A-Za-z ]+" required>
+                
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" pattern="[0-9]{10}" required>
+                <span class="error-message">Digite um número de telefone válido.</span>
+                
+
+    
+                <label for="endereco">Endereço:</label>
+                <input type="text" id="endereco" name="endereco" required>
+                <button type="submit">Enviar</button>
+            </form>
+            
+           <!-- Seu código anterior ... -->
+           <script>
+            function validarFormulario() {
+                var telefone = document.getElementById('telefone').value;
+        
+                if (!/^[0-9]{10}$/.test(telefone)) {
+                    alert('Digite um número de telefone válido.');
+                    return false;
+                }
+        
+                return true;
+            }
+        </script>
+        
+<script>
+    // Firebase Config
+    const firebaseConfig = {
+        apiKey: "nMKu4WnLfDrI-ISP3DVYyC3glW1f-vf8TFdom4j6EFY",
+        authDomain: "seu-projeto.firebaseapp.com",
+        projectId: "seu-projeto",
+        storageBucket: "seu-projeto.appspot.com",
+        messagingSenderId: "Seu-ID-de-Messaging",
+        appId: "Sua-ID-de-App",
+        measurementId: "Sua-Measurement-ID"
+    };
+
+    // Inicialize o Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Referência ao nó 'alunos' no Realtime Database
+    var alunosRef = firebase.database().ref('alunos');
+</script>
+
+<!-- Seu código anterior ... -->
+
+<script>
+    function enviarDados(event) {
+        event.preventDefault();
+
+        var nome = document.getElementById('nome').value;
+        var email = document.getElementById('email').value;
+        var telefone = document.getElementById('telefone').value;
+        var endereco = document.getElementById('endereco').value;
+
+        // Verifique se a referência 'alunosRef' está definida corretamente
+        if (alunosRef) {
+            alunosRef.push({
+                nome: nome,
+                email: email,
+                telefone: telefone,
+                endereco: endereco
+            });
+
+            // Limpe o formulário após o envio
+            document.getElementById('nome').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('telefone').value = '';
+            document.getElementById('endereco').value = '';
+
+            alert('Dados enviados com sucesso!');
+        } else {
+            console.error("Referência 'alunosRef' não está definida corretamente.");
+        }
+    }
+</script>
+
+<!-- Seu código posterior ... -->
+
+
+
+            
+        </section>
+        <br>
+        
+        <br>
+    <script>
+        // Frase dinâmica com efeito de digitação
+        var frase = "Não por mim, mas por todos !!!";
+        var banner = document.getElementById("banner");
+        var index = 0;
+
+        function exibirTexto() {
+            banner.textContent = frase.substring(0, index);
+            index++;
+
+            if (index > frase.length) {  index = 0;
+            }
+        }
+
+        // Intervalo para o efeito de digitação
+        setInterval(exibirTexto, 150); // Ajuste o valor para controlar a velocidade da digitação
+    </script>
+</main>
+<footer>
+    <div class="direitos-autorais">
+        <p>&copy; 2024 Escola de Jesus - Fortaleza. Todos os direitos reservados.</p>
+    </div>
+</footer>
+</body>
+</html>
